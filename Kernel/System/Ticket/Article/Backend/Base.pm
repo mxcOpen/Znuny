@@ -1,6 +1,7 @@
 # --
 # Copyright (C) 2001-2021 OTRS AG, https://otrs.com/
 # Copyright (C) 2021 Znuny GmbH, https://znuny.org/
+# Copyright (C) 2021 maxence business consulting GmbH, http://www.maxence.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -675,6 +676,8 @@ sub _MetaArticleDynamicFieldsGet {
             DynamicFieldConfig => $DynamicFieldConfig,
             ObjectID           => $Data{ArticleID},
         );
+
+        next DYNAMICFIELD if !defined $Value;
 
         # Set the dynamic field name and value into the article hash.
         $Data{ 'DynamicField_' . $DynamicFieldConfig->{Name} } = $Value;

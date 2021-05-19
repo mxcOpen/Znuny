@@ -1,6 +1,7 @@
 # --
 # Copyright (C) 2001-2021 OTRS AG, https://otrs.com/
 # Copyright (C) 2021 Znuny GmbH, https://znuny.org/
+# Copyright (C) 2021 maxence business consulting GmbH, http://www.maxence.de
 # --
 # This software comes with ABSOLUTELY NO WARRANTY. For details, see
 # the enclosed file COPYING for license information (GPL). If you
@@ -797,6 +798,13 @@ for my $Test (@Tests) {
             $Test->{RequestData}->{Article}->{From},
             "$Test->{Name} - Article from Ok.",
         );
+
+        # Check for type of key containing ticket dynamic field data, since it might be a hash on systems without
+        #   multiple fields defined. In this case normalize it to an array of hashes for easier comparison later.
+        if ( ref $RequesterResult->{Data}->{Ticket}->{DynamicField} eq 'HASH' ) {
+            $RequesterResult->{Data}->{Ticket}->{DynamicField}
+                = [ $RequesterResult->{Data}->{Ticket}->{DynamicField} ];
+        }
 
         # check dynamic fields
         my %CompareDynamicFieldReq;
